@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+    <script src="echarts.min.js"></script>
+  </head>
+  <body style="background: #999">
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+      var myChart1 = echarts.init(document.getElementById("main"));
+      var option1 = {
+        xAxis: {
+          default: "category",
+          // x轴显示的数据
+          data: ["东北区", "东南区", "西北区", "西南区"],
+          // x轴线条的相关配置
+          axisLine: {
+            // 线的颜色
+            lineStyle: {
+              color: "#fff"
+            }
+          },
+          // x轴的刻度
+          axisTick: {
+            show: false
+          }
+        },
+        yAxis: {
+          show: false
+        },
+        // 鼠标放到柱子上 显示相关数据
+        tooltip: {},
+        legend: {
+          // data和series里面各个图的name对应
+          // data: ["报名收入", "报名人次"],
+          // data可以针对每个图例显示不同的样式
+          data: [
+            {
+              name: "报名收入",
+              textStyle: {
+                color: "#fff"
+              },
+
+            //   icon:'none'
+            },
+            {
+              name: "报名人次",
+              textStyle: {
+                color: "#fff"
+              },
+
+            //   icon:'none'
+            },
+          ],
+          bottom: 10
+        },
+        // 其实是各种图 比如折线图 条状图等
+        series: [
+          // type是图的类型
+          {
+            // 折线图
+            type: "line",
+            // 转折点的颜色，点在刻度的正上方
+            itemStyle: {
+              color: "yellow"
+            },
+            // 线的颜色
+            lineStyle: {
+              color: "yellow"
+            },
+            // 折线显示的数据
+            data: [120, 200, 150, 80],
+            name: "报名人次",
+            label: {
+              show: true,
+              position: "right",
+              // 上面的位置写好之后，距离柱子的距离
+              // distance:'5px',
+              color: "#fff",
+              fontSize: 10
+            }
+          },
+          {
+            // 柱状图
+            type: "bar",
+            // 柱子的颜色 柱子的中心在刻度正上方
+            itemStyle: {
+              color: "blue"
+            },
+            // 显示的数据
+            data: [100, 200, 170, 70],
+            // 这里的name和legend相互配合，从而表示此图对应的名字，在右上角显示
+            name: "报名收入",
+            // 每个柱子表示的数据 显示
+            label: {
+              show: true,
+              position: "top",
+              // 上面的位置写好之后，距离柱子的距离
+              // distance:'5px',
+              color: "#fff",
+              fontSize: 10
+            },
+            // 柱子的宽度
+            barWidth: 30
+            // encode配合dataSet使用，具体在研究
+          }
+        ]
+      };
+      // var option1 = JSON.parse(JSON.stringify(option))
+
+      myChart1.setOption(option1);
+    </script>
+  </body>
+</html>

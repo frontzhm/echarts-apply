@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- 1.引入 echarts.js -->
+    <script src="https://cdn.bootcss.com/echarts/4.2.1/echarts.min.js"></script>
+</head>
+<body>
+  <!-- 2.有高度的div -->
+   <div id="main" style="width:600px;height:400px;"></div>
+   <script>
+     var data = [
+       ['邮件营销',120, 132, 101, 134, 90, 230, 210],
+       ['联盟广告',220, 182, 191, 234, 290, 330, 310],
+       ['视频广告',150, 232, 201, 154, 190, 330, 410],
+       ['直接访问',320, 332, 301, 334, 390, 330, 320],
+       ['搜索引擎',820, 932, 901, 934, 1290, 1330, 1320]
+   ]
+  // 3. init
+  var echartsInstance = echarts.init(document.querySelector('#main'))
+  var option = {
+    // 鼠标放在坐标轴上可以显示相应数据 小黑框显示
+    tooltip:{
+      trigger:'axis'
+    },
+    grid:{
+      backgroundColor:'rgba(0,0,0,.1)',
+      left:50,
+      show:true
+    },
+    // 右上角出现工具栏，可以将表格导出为图片，显示原始数据等
+    toolbox:{
+      feature: {
+            // 存为图片小图标
+            saveAsImage: {},
+            // 可以直接编辑数据显示图
+            dataView:{},
+            
+        }
+    },
+    xAxis:{
+      data:['周一','周二','周三','周四','周五','周六','周日'],
+      // 刻度直接从0处开始
+      boundaryGap: false,
+    },
+    yAxis:{},
+    legend:{
+      data:[]
+    },
+    series:[]
+    
+  }
+  data.forEach((item,index)=>{
+    option.series[index]={
+      type:'line',
+      name:item[0],
+      data:item.slice(1),
+      // 同类目的数据相加
+      stack:'总量'
+    }
+    option.legend.data.push(item[0])
+  })
+
+  // 4. setOption
+  echartsInstance.setOption(option)
+   </script>
+</body>
+</html>

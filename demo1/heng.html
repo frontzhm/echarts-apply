@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+    <script src="echarts.min.js"></script>
+  </head>
+  <body style="background: #999">
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+      var myChart1 = echarts.init(document.getElementById("main"));
+      var yuanBanData = [8668, 7161, 27611, 0];
+      var xuBanData = [767, 465, 0, 0];
+      // var xuBanLvData = xuBanData.map((item,index)=>item/(yuanBanData[index])*100%)
+      var xuBanLvData = xuBanData.map((item, index) => {
+        var value = yuanBanData[index] ? item / yuanBanData[index] : 0;
+        return (value * 100).toFixed(0);
+      });
+      var xubanLvDataObj = xuBanLvData.map(item=>new Object({value:item}));
+      var option1 = {
+        yAxis: {
+          default: "category",
+          // x轴显示的数据
+          data: ["数学", "语文", "英语", "其他"],
+          // x轴线条的相关配置
+          axisLine: {
+            // 线的颜色
+            lineStyle: {
+              color: "#fff"
+            }
+          },
+          // x轴的刻度
+          axisTick: {
+            show: false
+          },
+          // 坐标轴反过来，其实就是数组从上到下排列
+          inverse: true
+        },
+
+        xAxis: {
+          default: "value",
+          // show: false,
+          axisLine: {
+            lineStyle: {
+              color: "#fff"
+            }
+          },
+          // 坐标轴的文字
+          axisLabel: {
+            rotate: 45
+          }
+          // 分割线
+          // splitLine:{
+          //   show:false
+          // }
+        },
+        // 鼠标放到柱子上 显示相关数据
+        // tooltip: {
+        //   trigger: "axis"
+        // },
+
+        tooltip: {
+          trigger: "axis",
+          axisPointer: {
+            type: "shadow"
+          },
+          formatter: function(params) {
+            console.log(params);
+            return params.reduce((accur, cur) => {
+              cur.seriesName === "续班率" && (cur.value += "%");
+              return (
+                accur + cur.marker + cur.seriesName + "：" + cur.value + "<br>"
+              );
+            }, params[0].name + "<br>");
+          }
+          // formatter: '{a0}: {c0}<br />{a1}: {c1}<br />{a2}: {c3}'
+          // formatter: ''
+        },
+        legend: {
+          // data和series里面各个图的name对应
+          // data: ["报名收入", "报名人次"],
+          // data可以针对每个图例显示不同的样式
+          data: [
+            {
+              name: "源班人数",
+              textStyle: {
+                color: "#fff"
+              }
+
+              //   icon:'none'
+            },
+            {
+              name: "续班人数",
+              textStyle: {
+                color: "#fff"
+              }
+            },
+            {
+              name: "续班率",
+              textStyle: {
+                color: "#fff"
+              }
+
+              //   icon:'none'
+            }
+          ],
+          top: 10
+        },
+        // label: {
+        //   formatter: function(data) {
+        //     console.log("11111111", data);
+        //     var str = data.data + "%";
+        //     return str;
+        //   },
+        //   color: "white"
+        // },
+        // 其实是各种图 比如折线图 条状图等
+        series: [
+          // type是图的类型
+          {
+            // 柱状图
+            type: "bar",
+            // 柱子的颜色 柱子的中心在刻度正上方
+            itemStyle: {
+              color: "blue"
+            },
+            // 显示的数据
+            data: [8668, 7161, 27611, 0],
+            // 这里的name和legend相互配合，从而表示此图对应的名字，在右上角显示
+            name: "源班人数",
+            // 每个柱子表示的数据 显示
+            label: {
+              // show: true,
+              position: "top",
+              // 上面的位置写好之后，距离柱子的距离
+              // distance:'5px',
+              color: "#fff",
+              fontSize: 10
+            },
+            // 柱子的宽度
+            barWidth: 30,
+            // encode配合dataSet使用，具体在研究
+            stack: "总量"
+          },
+          {
+            name: "续班人数",
+            type: "bar",
+            data: [767, 465, 0, 0],
+            stack: "总量"
+          },
+          {
+            name: "续班率",
+            // 折线图
+            type: "line",
+            smooth: true,
+            // 转折点的颜色，点在刻度的正上方
+            itemStyle: {
+              color: "yellow"
+            },
+            // 线的颜色
+            lineStyle: {
+              color: "yellow"
+            },
+
+            // 折线显示的数据
+
+            // data: xubanLvDataObj,
+            data: xubanLvDataObj,
+            stack: "总量",
+            label: {
+              show: true,
+              position: "right",
+              // 上面的位置写好之后，距离柱子的距离
+              // distance:'5px',
+              color: "#fff",
+              fontSize: 10,
+              // 每项显示的数据 加上%
+              formatter(params) {
+                console.log(params);
+                return params.data.value + "%";
+              },
+              // tooltip: {
+              //   formatter(params) {
+              //     console.log(params);
+              //     return params.data.value + "%";
+              //   }
+              // }
+            }
+          }
+        ]
+      };
+      // var option1 = JSON.parse(JSON.stringify(option))
+
+      myChart1.setOption(option1);
+    </script>
+  </body>
+</html>
