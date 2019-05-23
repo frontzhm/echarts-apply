@@ -9,7 +9,7 @@
 * [自己的玩的代码](https://github.com/frontzhm/echarts-apply)
 
 <!-- more -->
-<!-- ddddd -->
+<!-- ddddd ddd-->
 ## 下载
 
 * [完整压缩版的地址](http://echarts.baidu.com/dist/echarts.min.js)
