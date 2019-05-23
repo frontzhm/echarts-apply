@@ -8,7 +8,7 @@
 * 遇见困难[看文档](https://www.echartsjs.com/option.html#title)，没事敲敲[实例](https://echarts.baidu.com/examples/)快速增加对属性的理解
 * [自己的玩的代码](https://github.com/frontzhm/echarts-apply)
 
-<!-- more -->
+<!-- more -->写信息
 ## 下载
 
 * [完整压缩版的地址](http://echarts.baidu.com/dist/echarts.min.js)
